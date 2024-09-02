@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Película</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" href="../assets/icons/icon-page.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .movie-details {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .movie-details .card {
+            border: none;
+            box-shadow: none;
+        }
+        .movie-details img {
+            max-width: 100%;
+        }
+        .movie-details .movie-header {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 473px) {
+            .movie-details .movie-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            .movie-details .movie-header img {
+                width: 40%;
+                margin-right: 20px;
+            }
+            .movie-details .movie-header .movie-info {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" >
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" style="color: white;" href="../index.html">Crud Completo</a>
+        </div>
+    </nav>
+
+    <main class="container movie-details">
+        <a class="btn btn-info mb-2 d-flex justify-content-center align-content-center gap-2" style="width: 120px;" href="../index.html">
+            <i class="bi bi-arrow-left-circle-fill"></i>
+            Regresar</a>
+        <div class="movie-header">
+            <img src="" alt="Poster de Película" id="moviePoster" class="img-fluid">
+            <div class="movie-info">
+                <h5 id="movieTitle"></h5>
+                <p><strong>Tipo:</strong> <span id="movieType"></span></p>
+                <p><strong>Año:</strong> <span id="movieYear"></span></p>
+                <p><strong>Ubicación:</strong> <span id="movieUbication"></span></p>
+                <p><strong>Descripción:</strong> <span id="movieDescription"></span></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moviePoster = document.getElementById('moviePoster');
+            const movieTitle = document.getElementById('movieTitle');
+            const movieType = document.getElementById('movieType');
+            const movieYear = document.getElementById('movieYear');
+            const movieUbication = document.getElementById('movieUbication');
+            const movieDescription = document.getElementById('movieDescription');
+            const urlParams = new URLSearchParams(window.location.search);
+            const imdbID = urlParams.get('imdbID');
+
+            fetch(`https://movie.azurewebsites.net/api/cartelera?imdbID=${imdbID}`)
+                .then(response => response.json())
+                .then(movie => {
+                    moviePoster.src = movie.Poster;
+                    movieTitle.textContent = movie.Title;
+                    movieType.textContent = movie.Type;
+                    movieYear.textContent = movie.Year;
+                    movieUbication.textContent = movie.Ubication;
+                    movieDescription.textContent = movie.description;
+                })
+                .catch(error => console.error('Error al obtener los detalles de la película:', error));
+        });
+    </script>
+</body>
+</html>
