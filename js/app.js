@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function createMovieCard(movie) {
     return `
             <div class="card-custom">
-                <img src="${movie.Poster}" alt="${movie.Title}" class="card-custom-img" data-id="${movie.imdbID}" onclick="window.location.href='html/movie-details.html?imdbID=${movie.imdbID}'">
+                <img src="${movie.Poster}" alt="${movie.Title}" class="card-custom-img cursor-pointer" data-id="${movie.imdbID}" onclick="window.location.href='html/movie-details.html?imdbID=${movie.imdbID}'">
                 <div class="card-custom-body">
                     <h5 class="card-custom-title">${movie.Title}</h5>
                     <p class="card-custom-type"><strong>Tipo:</strong> ${movie.Type}</p>
